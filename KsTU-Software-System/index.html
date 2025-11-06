@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KsTU Hardware and Software Unit - Technical Support</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --kstu-primary: #003366;
+            --kstu-secondary: #FF6600;
+            --kstu-accent: #00A86B;
+            --kstu-light: #F5F5F5;
+            --kstu-dark: #1A1A1A;
+            --gradient-primary: linear-gradient(135deg, var(--kstu-primary) 0%, #004080 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--kstu-secondary) 0%, #FF8533 100%);
+            --gradient-accent: linear-gradient(135deg, var(--kstu-accent) 0%, #00CC7A 100%);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.15);
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ed 100%);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--kstu-primary);
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-sub {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.05)"><polygon points="1000,100 1000,0 0,100"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--kstu-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+            border-top: 4px solid var(--kstu-secondary);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--kstu-primary);
+        }
+
+        /* Status Check Section */
+        .status-check {
+            padding: 5rem 0;
+            background: var(--gradient-accent);
+            color: white;
+        }
+
+        .status-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--kstu-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e1e8ed;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--kstu-secondary);
+            box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.1);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: var(--kstu-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            background: var(--gradient-primary);
+            border-radius: 15px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 0;
+            background: var(--kstu-light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--kstu-secondary);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--kstu-primary);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 5rem 0;
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--kstu-secondary);
+            margin-top: 0.2rem;
+        }
+
+        .contact-text h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--kstu-primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--kstu-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: var(--gradient-secondary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-links h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--kstu-secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--kstu-secondary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--kstu-primary);
+                padding: 1rem 0;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .about-content, .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-container">
+                <div class="logo">KsTU</div>
+                <div class="logo-text">
+                    <div class="logo-main">Hardware & Software Unit</div>
+                    <div class="logo-sub">Technical Support System</div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" type="button">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-menu">
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Home</a>
+                <a href="submit-ticket.php"><i class="fas fa-ticket-alt"></i> Submit Ticket</a>
+                <a href="check-status.php"><i class="fas fa-search"></i> Check Status</a>
+                <a href="admin/login.php"><i class="fas fa-user-shield"></i> Admin Login</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content fade-in-up">
+            <h1>KsTU Hardware & Software Support</h1>
+            <p>Comprehensive technical support for all KsTU staff and students. Fast, reliable, and professional service for all your hardware and software needs.</p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="submit-ticket.php" class="btn"><i class="fas fa-plus-circle"></i> Submit Support Ticket</a>
+                <a href="check-status.php" class="btn btn-secondary"><i class="fas fa-search"></i> Check Ticket Status</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>How Our Support System Works</h2>
+                <p>Simple, efficient, and designed specifically for KsTU community needs</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h3>Submit Ticket</h3>
+                    <p>Describe your technical issue in detail. Our system will guide you through providing all necessary information for our technicians.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Expert Diagnosis</h3>
+                    <p>Our certified technicians will analyze your issue and provide the best solution based on your specific hardware or software problem.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Problem Resolution</h3>
+                    <p>We'll efficiently resolve your technical issues and ensure everything is working perfectly before closing your ticket.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status Check Section -->
+    <section class="status-check">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Check Your Ticket Status</h2>
+                <p>Enter your ticket ID and email to track your support request</p>
+            </div>
+            <div class="status-form fade-in-up">
+                <form action="check-status.php" method="POST">
+                    <div class="form-group">
+                        <label for="ticket-id"><i class="fas fa-ticket-alt"></i> Ticket ID</label>
+                        <input type="text" id="ticket-id" name="ticket_id" class="form-control" placeholder="Enter your ticket ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-block"><i class="fas fa-search"></i> Check Status</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text fade-in-up">
+                    <h2>About KsTU Hardware & Software Unit</h2>
+                    <p>The Kumasi Technical University Hardware and Software Unit is dedicated to providing comprehensive technical support to all staff and students. Our team of certified technicians specializes in resolving a wide range of hardware and software issues.</p>
+                    <p>We understand that technical problems can disrupt academic and administrative work, which is why we've developed this efficient support system to ensure quick resolution of all technical issues.</p>
+                    <p>Our services cover computer hardware repairs, software installation and troubleshooting, network connectivity issues, printer problems, and much more.</p>
+                    <a href="submit-ticket.php" class="btn"><i class="fas fa-ticket-alt"></i> Get Support Now</a>
+                </div>
+                <div class="about-image fade-in-up">
+                    <div style="text-align: center;">
+                        <i class="fas fa-laptop-code" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                        <div>KsTU Technical Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Our Services</h2>
+                <p>Comprehensive technical support for all your needs</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card fade-in-up">
+                    <div class="service-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3>Hardware Repair</h3>
+                    <p>Diagnosis and repair of computers, laptops, printers, and other hardware devices.</p>
+                </div>
+                <div class="service-card fade-in-up">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Software Support</h3>
+                    <p>Installation, configuration, and troubleshooting of software applications and operating systems.</p>
+                </div>
+                <div class="service-card fade-in-up">
+                    <div class="service-icon">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3>Network Support</h3>
+                    <p>Connectivity issues, network configuration, and internet access problems resolution.</p>
+                </div>
+                <div class="service-card fade-in-up">
+                    <div class="service-icon">
+                        <i class="fas fa-print"></i>
+                    </div>
+                    <h3>Printer Services</h3>
+                    <p>Printer installation, configuration, troubleshooting, and maintenance services.</p>
+                </div>
+                <div class="service-card fade-in-up">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security Solutions</h3>
+                    <p>Virus removal, malware protection, and security configuration for your devices.</p>
+                </div>
+                <div class="service-card fade-in-up">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Data Management</h3>
+                    <p>Data backup, recovery, and migration services to protect your important files.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card fade-in-up">
+                    <div class="stat-number">1,250+</div>
+                    <div class="stat-label">Tickets Resolved</div>
+                </div>
+                <div class="stat-card fade-in-up">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Availability</div>
+                </div>
+                <div class="stat-card fade-in-up">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfaction Rate</div>
+                </div>
+                <div class="stat-card fade-in-up">
+                    <div class="stat-number">2.5h</div>
+                    <div class="stat-label">Avg. Response Time</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title fade-in-up">
+                <h2>Contact Us</h2>
+                <p>Get in touch with the KsTU Hardware & Software Unit</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info fade-in-up">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Our Location</h3>
+                            <p>ICT Directorate, KsTU Main Campus<br>Kumasi, Ghana</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Phone Number</h3>
+                            <p>+233 (0) 322 196 122</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email Address</h3>
+                            <p>support@kstu.edu.gh</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Working Hours</h3>
+                            <p>Monday - Friday: 8:00 AM - 5:00 PM<br>Saturday: 9:00 AM - 1:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form fade-in-up">
+                    <div class="status-form">
+                        <h3 style="color: var(--kstu-primary); margin-bottom: 1.5rem;">Quick Support Request</h3>
+                        <form action="submit-ticket.php" method="POST">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="issue">Brief Description of Issue</label>
+                                <textarea id="issue" name="issue" class="form-control" rows="4" placeholder="Briefly describe your issue" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-block"><i class="fas fa-paper-plane"></i> Submit Request</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">KsTU H&S Unit</div>
+                    <p>The Kumasi Technical University Hardware and Software Unit provides comprehensive technical support to all staff and students, ensuring seamless technology operations across campus.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="submit-ticket.php">Submit Ticket</a></li>
+                        <li><a href="check-status.php">Check Status</a></li>
+                        <li><a href="admin/login.php">Admin Login</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>KsTU Links</h3>
+                    <ul>
+                        <li><a href="https://kstu.edu.gh" target="_blank">KsTU Main Website</a></li>
+                        <li><a href="https://kstu.edu.gh/admissions" target="_blank">Admissions</a></li>
+                        <li><a href="https://kstu.edu.gh/academics" target="_blank">Academics</a></li>
+                        <li><a href="https://kstu.edu.gh/research" target="_blank">Research</a></li>
+                        <li><a href="https://kstu.edu.gh/contact" target="_blank">Contact KsTU</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>Our Services</h3>
+                    <ul>
+                        <li><a href="#">Hardware Repair</a></li>
+                        <li><a href="#">Software Support</a></li>
+                        <li><a href="#">Network Support</a></li>
+                        <li><a href="#">Printer Services</a></li>
+                        <li><a href="#">Security Solutions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Kumasi Technical University - Hardware & Software Unit. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!navMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            }
+
+            // Add animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections for animation
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
